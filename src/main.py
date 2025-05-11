@@ -1,5 +1,5 @@
 # main.py
-from src.textnode import TextNode, TextType
+from textnode import TextNode, TextType
 
 #print("hello world")
 

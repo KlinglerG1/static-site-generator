@@ -47,3 +47,33 @@ class HTMLNode:
         """
         return (f"HTMLNode(tag={self.tag!r}, value={self.value!r}, "
                 f"children={self.children!r}, props={self.props!r})")
+
+class LeafNode(HTMLNode):
+    def __init__(self, tag, value, props=None):
+        """
+        Initializes a LeafNode. Unlike HTMLNode, children are not allowed,
+        and a value is required.
+
+        Parameters:
+        - tag (str or None): The HTML tag name. If None, it will render as raw text.
+        - value (str): The inner text content (required).
+        - props (dict): Optional HTML attributes.
+        """
+        if value is None:
+            raise ValueError("LeafNode must have a value.")
+        super().__init__(tag=tag, value=value, children=None, props=props)
+
+    def to_html(self):
+        """
+        Renders this leaf node as an HTML string.
+
+        - If no tag: returns raw text.
+        - If tag: returns HTML tag with props and value inside.
+        """
+        if self.value is None:
+            raise ValueError("LeafNode must have a value to render.")
+
+        if self.tag is None:
+            return self.value
+
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"

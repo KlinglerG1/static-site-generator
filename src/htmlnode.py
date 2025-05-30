@@ -40,3 +40,10 @@ class HTMLNode:
         props_str = " ".join(f'{key}="{value}"' for key, value in self.props.items())
         # Prepend a space so that attributes appear correctly in HTML (e.g., <a href="...">)
         return f" {props_str}"
+
+    def __repr__(self):
+        """
+        Returns a string representation of the HTMLNode for debugging.
+        """
+        return (f"HTMLNode(tag={self.tag!r}, value={self.value!r}, "
+                f"children={self.children!r}, props={self.props!r})")
